@@ -1,7 +1,8 @@
 class FallbackController < ActionController::Base
 
-    def index
-      render file: 'public/index.html'
-    end
+  # Test action for app configuration
+  def index
+    render file: 'public/index.html'    
+  end
     
   end
