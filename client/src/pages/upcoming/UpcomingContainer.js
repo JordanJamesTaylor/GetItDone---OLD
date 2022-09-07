@@ -1,7 +1,7 @@
 /* IMPORT DEPENDENCIES */
 import { useState } from "react";
-import { format } from 'date-fns'
-import Typography from '@mui/material/Typography';
+import { format } from 'date-fns';
+import { Typography, Divider } from "@mui/material";
 
 /* IMPORT COMPONENTS */
 import Task from "../../page components/tasks/Task";
@@ -39,9 +39,9 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
         const monthYear = `${date.getMonth()} ${date.getYear()}`
 
         if(taskMonths[months]){
-        taskMonths[parseInt(months)].push(task)
+          taskMonths[parseInt(months)].push(task)
         }else{
-        taskMonths[months] = [task]
+          taskMonths[months] = [task]
         }
 
         const formattedDate = format(date, 'H:mm dd/mm/yyyy');
@@ -75,13 +75,14 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
     const monthHeaderWithTasks = monthsToDisplay.map((m) => {
         return(
           <>
-            <Typography key={m}>{m}</Typography>
-            {mappedTasks}
+          <Divider>
+              <Typography style={{ width: '400px', fontSize: 50 }}>{`Tasks for ${m}`}</Typography>
+          </Divider>
+          {mappedTasks}
           </>
         )
     });
 
-    console.log('MONTHS TO DISPLAY: ', monthsToDisplay)
     return(
       <ol>
         {monthHeaderWithTasks}

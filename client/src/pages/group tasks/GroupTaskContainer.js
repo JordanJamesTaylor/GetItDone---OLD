@@ -36,7 +36,7 @@ export default function GroupTaskContainer({ groupData, groupTasks }){
           notes={group.notes} 
           categories={group.categories} 
           priority={group.priority} 
-          end_time={group.end_time}
+          end_time={formattedDate}
           expired={expired}     
         />     
       </li>

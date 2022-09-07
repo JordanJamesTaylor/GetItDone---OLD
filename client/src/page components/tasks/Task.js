@@ -55,19 +55,19 @@ export default function Task({ id, title, notes, categories, priority, end_time,
     if(priority === 1){
       return(
         <>
-          <Typography paragraph>Priority Level: HIGH</Typography>
+          <Typography paragraph style={{ color: 'red' }}>Priority Level: HIGH</Typography>
         </>
       )
     }else if(priority === 2){
       return(
         <>
-          <Typography paragraph>Priority Level: MEDIUM</Typography>
+          <Typography paragraph style={{ color: 'blue' }}>Priority Level: MEDIUM</Typography>
         </>
       )
     }else{
       return(
         <>
-          <Typography paragraph>Priority Level: LOW</Typography>
+          <Typography paragraph style={{ color: 'green' }}>Priority Level: LOW</Typography>
         </>
       )
     }

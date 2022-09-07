@@ -1,7 +1,7 @@
 /* IMPORT DEPENDENCIES */
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 /* IMPORT COMPONENTS */
 import HeaderAndSidebar from "./page components/header & sidebar/HeaderAndSidebar"

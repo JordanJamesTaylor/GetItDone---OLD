@@ -9,8 +9,11 @@ export default function TaskContainer({ tasks, refresh, setRefresh}){
 
     const mappedTasks = tasks.map((task) => {
     
+    console.log("DATE BEFORE: ", task.end_time)
     // Change type of date from string back to datetime
     const date = new Date(task.end_time)
+
+    console.log("DATE AFTER: ", date)
 
     // Check for expired tasks
     let expired = false
@@ -24,7 +27,7 @@ export default function TaskContainer({ tasks, refresh, setRefresh}){
     }
 
     // Format datetime
-    const formattedDate = format(date, 'H:mm dd/mm/yyyy');
+    const formattedDate = format(date, 'dd/MM/yyyy H:mm');
 
     // Check if date is in the past
     const checkForExpired = new Date(task.end_time) - new Date();
