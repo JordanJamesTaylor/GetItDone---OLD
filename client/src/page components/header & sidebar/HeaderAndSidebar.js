@@ -1,6 +1,6 @@
 /* IMPORT DEPENDENCIES */
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 /* IMPORT MATERIAL US COMPONENTS */
@@ -35,6 +35,7 @@ import HeaderAvatar from './HeaderAvatar';
 import AddTask from '../tasks/AddTask';
 import AddGroup from '../groups/AddGroup';
 import GroupIcon from '../groups/GroupIcon';
+import CustomContextMenu from '../right click menu/CustomContextMenu';
 
 // Set width of tool bar
 const drawerWidth = 240;
@@ -45,8 +46,20 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
     const [open, setModalOpen] = useState(false);
     const [addTask, setAddTask] = useState(false);
     const [addGroup, setAddGroup] = useState(false);
+    const [showCustomContext, setShowCustomContext] = useState(false);
+    const [selectedContextGroup, setSelectedContextGroup] = useState(0)
+    const [contextPoints, setContextPoints] = useState({ x: 0, y: 0 })
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const closeCustomContext = () => setShowCustomContext(false);
+      window.addEventListener('click', closeCustomContext)
+
+      
+      // Avoids memory leaks ---- look up what that means
+      return () => window.removeEventListener('click', closeCustomContext)
+    }, [])
 
     //const handleOpen = () => setModalOpen(true);
     const handleClose = () => setModalOpen(false);
@@ -56,7 +69,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
       setAddGroup(false)
       setAddTask(true)
       setModalOpen(true)
-    }
+    };
 
     // Open task model if user clicked group icopn 
     function openGroup(){
@@ -64,7 +77,20 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
       setAddTask(false)
       setAddGroup(true)
       setModalOpen(true)
-    }
+    };
+
+    function openGroupContextMenu(e, id){
+      console.log("CONTEXT MENU HIT")
+      console.log("GROUP CONTEXT ID: ", id);
+      setSelectedContextGroup(id)
+      // Prevent right click from display default menu
+      e.preventDefault();
+      // Open custom context menu
+      setShowCustomContext(true)
+      // Set menu to render in the same location as the right click
+      // ADD TO THE SIDE OF THE GROUP BUTTON -- NOT ON TOP OF IT, FIGURE OUT FIX
+      //setContextPoints({x: e.pageX, y: e.pageY})
+    };
 
     function groupClick(group){
 
@@ -76,7 +102,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
         setGroupTasks(data)
         navigate('/group-tasks')
       })
-    }
+    };
 
     // Create icons for each group belonging to the user
     const mappedGroups = user.groups.map((group) => {
@@ -86,6 +112,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
           id={group.id} 
           group={group}
           groupClick={groupClick}
+          openGroupContextMenu={openGroupContextMenu}
         />     
       )
     });
@@ -185,7 +212,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
             </ListItemButton>
           </ListItem>
           <ListItem key={"upcoming"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/upcoming")}>
               <ListItemIcon>
                 {<CalendarMonthSharpIcon />}
               </ListItemIcon>
@@ -235,7 +262,10 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
             </ListItemButton>
           </ListItem>
           <List>
-            {mappedGroups}
+            <>
+              {mappedGroups}
+              {showCustomContext && <CustomContextMenu top={contextPoints.x} left={contextPoints.y} selectedContextGroup={selectedContextGroup} setRefresh={setRefresh}/>}
+            </>
           </List>
           
         </List>

@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
 
     belongs_to :profile
-    has_many :tasks
+    has_many :tasks, dependent: :destroy
     # has_one :group_chat, dependent: :destroy
     has_many :messages, through: :group_chat
 

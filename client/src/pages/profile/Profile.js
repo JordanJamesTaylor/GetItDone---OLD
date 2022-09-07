@@ -8,10 +8,9 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import { deepOrange } from '@mui/material/colors';
+import Tiptap from '../../page components/tip tap/TipTap';
 
 export default function Profile({ user, setUser, setErrors }) {
-
-  console.log("PROFILE: ", user);
 
   const [avatar, setAvatar] = useState("");
   const [username, setUsername] = useState("");
@@ -58,6 +57,7 @@ export default function Profile({ user, setUser, setErrors }) {
       e.preventDefault();
 
       console.log("USER ID: ", user.id)
+      console.log("PROFILE AVATAR : ", user.avatar_url)
 
       if(avatar){
         formData.append("avatar", avatar)
@@ -76,10 +76,11 @@ export default function Profile({ user, setUser, setErrors }) {
       };
 
       fetch(`/profiles/info/${user.id}`, { 
-      method: "PATCH",
-      body: formData
+        method: "PATCH",
+        body: formData,
       }).then((r) => {
       if (r.ok) {
+          console.log("PROFILE USER: ", r)
           r.json().then((user) => setUser(user));
           setErrors([])
           setAvatar("")
@@ -109,11 +110,11 @@ export default function Profile({ user, setUser, setErrors }) {
         <Typography variant="h3" gutterBottom>
           {user.username ? `Welcome ${user.username}!` : "Welcome Jordan!"}
         </Typography>
-        {user.avatar ? 
+        {user.avatar_url ? 
             <Avatar
-              sx={{ bgcolor: deepOrange[500], width: 250, height: 250 }}
-              alt="Remy Sharp"
-              src="/broken-image.jpg"
+              sx={{ width: 250, height: 250 }}
+              alt="Avatar"
+              src={user.avatar_url}
             >
             </Avatar>
           :
@@ -123,7 +124,7 @@ export default function Profile({ user, setUser, setErrors }) {
         }
         <Button variant="outlined" component="label">
           Upload Photo
-          <input hidden accept="image/*" multiple type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
+          <input hidden accept="image/" multiple type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
         </Button>
         {user.bio ? 
           <Typography gutterBottom variant="subtitle1" component="div">
@@ -184,6 +185,16 @@ export default function Profile({ user, setUser, setErrors }) {
           <Typography variant="subtitle1" component="div">
               Update bio
           </Typography>
+          {/* 
+          <Stack 
+            direction="row" 
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Tiptap />
+          </Stack>
+          */}
           <TextField
             id="outlined-multiline-static"
             label="Your bio"

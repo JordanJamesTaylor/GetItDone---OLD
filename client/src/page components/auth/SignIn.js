@@ -13,18 +13,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default function SignIn({ user, setUser, setErrors, setSignIn }) {
+export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalidLogin }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
     let navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
     
         console.log("USERNAME: ", username)
         console.log("PASSWORD: ", password)
+
+        if(password < 6){
+          setinvalidLogin(true);
+        };
     
         fetch("/login", { 
           method: "POST",
@@ -38,8 +42,9 @@ export default function SignIn({ user, setUser, setErrors, setSignIn }) {
               r.json().then((user) => setUser(user));
               console.log("LOGGED IN")
               setErrors([])
-              navigate("/home")
+              navigate("/")
           } else {
+              setinvalidLogin(true);
               r.json().then((err) => setErrors(err.errors));
           }
           });

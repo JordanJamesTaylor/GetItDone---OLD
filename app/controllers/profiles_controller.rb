@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
     end
 
     def show 
-        render json: current_user
+        render json: @current_user
     end
     
     def create
@@ -44,7 +44,7 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.permit(:username, :first_name, :last_name, :password, :email, :bio, :task_id)
+        params.permit(:username, :first_name, :last_name, :password, :email, :avatar, :bio, :task_id)
     end
 
 end

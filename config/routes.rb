@@ -17,13 +17,17 @@ Rails.application.routes.draw do
 
   # Login
   post "/login", to: "sessions#create"
+  
   # Kepp user logged in 
-  get "/me", to: "profiles#show"
+  get "/me", to: "sessions#show"
+
   # Logout
   delete "/logout", to: "sessions#destroy"
+
   # Check user permissions
-  get "/auth", to: "users#show"
-  # Add/change user's avatar and/or bio
+  get "/auth", to: "profiles#show"
+
+  # Add/change user profile information
   patch "/profiles/info/:id", to: "profiles#updateInfo"
 
   # Handles any requests that come through that aren't requests for our API routes by returning the public/index.html file instead

@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
     # Login
     def create
         profile = Profile.find_by(username: params[:username])
-        byebug
         # Check user exsits & password is correct
         if profile&.authenticate(params[:password])
             # Store user ID in session cookie
@@ -19,8 +18,8 @@ class SessionsController < ApplicationController
     # Logged in user
     def show 
         # Grab user class var from application_controller
-        if current_user
-            render json: current_user
+        if @current_user
+            render json: @current_user
         else
             render json: { message: "You must be logged in" }, status: :unauthorized
         end

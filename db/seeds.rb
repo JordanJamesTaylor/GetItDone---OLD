@@ -1,7 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+print 'SEEDING USER'
+Profile.create!(username: "James Dean", email: "james@email.com", password: '123456');
+
+print 'SEEDING GROUPS'
+Group.create!(title: 'Group One', profile_id: 1);
+Group.create!(title: 'Group Two', profile_id: 1);
+Group.create!(title: 'Group Three', profile_id: 1);
+
+print 'SEEDING TASKS'
+Task.create!(title: 'Task One', profile_id: 1);
+Task.create!(title: 'Task Two', profile_id: 1);
+Task.create!(title: 'Task Three', profile_id: 1);
+
+print 'SEEDING GROUP TASKS'
+Task.create!(title: 'Task One For Group One', profile_id: 1, group_id: 1);
+Task.create!(title: 'Task One For Group TWO', profile_id: 1, group_id: 2);
+Task.create!(title: 'Task Two For Group TWO', profile_id: 1, group_id: 2);
+Task.create!(title: 'Task Three For Group ONE', profile_id: 1, group_id: 3);
+Task.create!(title: 'Task Three For Group TWO', profile_id: 1, group_id: 3);
+Task.create!(title: 'Task Three For Group THREE', profile_id: 1, group_id: 3);
+
+print 'DONE SEEDING'

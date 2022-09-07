@@ -1,30 +1,37 @@
-/* IMPORT DEPENDENCIES */
-import React from "react";
 import { format } from 'date-fns'
 
 /* IMPORT COMPONENTS */
 import Task from "../../page components/tasks/Task";
 
-export default function Home({ tasks, refresh, setRefresh}){
-
-  const mappedTasks = tasks.map((task) => {
+export default function TaskContainer({ tasks, refresh, setRefresh}){
     
+    const months = {}
+
+    const mappedTasks = tasks.map((task) => {
+    
+    // Change type of date from string back to datetime
+    const date = new Date(task.end_time)
+
     // Check for expired tasks
     let expired = false
 
-    // Change type of date from string back to datetime
-    const date = new Date(task.end_time);
+    const monthYear = `${date.getMonth()} ${date.getYear()}`
+
+    if(months[monthYear]){
+      months[monthYear].push(task)
+    }else{
+      months[monthYear] = [task]
+    }
 
     // Format datetime
     const formattedDate = format(date, 'H:mm dd/mm/yyyy');
 
     // Check if date is in the past
-    const filteredDates = new Date(task.end_time) - new Date();
+    const checkForExpired = new Date(task.end_time) - new Date();
     // console.log("CHECKING FOR PAST DATE TASK: ", task.title)
-    // console.log("CHECKING FOR PAST DATE: ", filteredDates)
+    // console.log("CHECKING FOR PAST DATE: ", checkForExpired)
 
-
-    if(filteredDates < 0){
+    if(checkForExpired < 0){
       expired = true
     }else{
       expired = false
@@ -46,11 +53,11 @@ export default function Home({ tasks, refresh, setRefresh}){
         />     
       </li>
     )
-  });
+  }); 
 
   return(
     <ol>
       {mappedTasks}
     </ol>
   )
-};
+}

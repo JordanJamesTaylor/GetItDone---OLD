@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default function SignUp({ user, setUser, setErrors, setSignIn }) {
+export default function SignUp({ user, setUser, setErrors, setSignIn, setInvalidPassword }) {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,6 +24,10 @@ export default function SignUp({ user, setUser, setErrors, setSignIn }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if(password < 6){
+      setInvalidPassword(true)
+    }
 
     const formData = new FormData()
     formData.append("first_name", firstName)
@@ -47,7 +51,7 @@ export default function SignUp({ user, setUser, setErrors, setSignIn }) {
           r.json().then((user) => setUser(user));
           console.log("LOGGED IN")
           setErrors([])
-          navigate("/home")
+          navigate("/")
       } else {
           r.json().then((err) => setErrors(err.errors));
       }

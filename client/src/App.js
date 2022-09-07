@@ -1,13 +1,15 @@
 /* IMPORT DEPENDENCIES */
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 /* IMPORT COMPONENTS */
 import HeaderAndSidebar from "./page components/header & sidebar/HeaderAndSidebar"
 import Login from "./pages/login/Login";
-import Home from "./pages/home/Home";
+import Today from "./pages/today/Today";
 import Profile from "./pages/profile/Profile"
 import GroupTaskContainer from "./pages/group tasks/GroupTaskContainer";
+import UpcomingContainer from "./pages/upcoming/UpcomingContainer";
 
 export default function App() {
 
@@ -22,20 +24,15 @@ export default function App() {
   const [errors, setErrors] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
-
-  const navigate = useNavigate();
-
   useEffect(() => {
     setLoaded(false);
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
-          console.log("CURENT USER: ", user)
-          console.log("CURENT USER'S TASKS: ", user.tasks)
-          console.log("CURENT USER'S GROUPS: ", user.groups)
           setUser(user)
           setUserTasks(user.tasks)
           setGroupData(user.groups)
+          setLoaded(true)
           setRefresh(false)
         });
       }
@@ -43,15 +40,20 @@ export default function App() {
     // eslint-disable-next-line
   }, [refresh]);
   
-  //if (!loaded) return <></>;
+  // if (!loaded) return <></>;
 
-  if (!user) return <Login user={user} setUser={setUser} />;
+  if (!user) return(
+    <>
+      <ToastContainer />
+      <Login user={user} setUser={setUser} />;
+    </>
+  )
   
     return (
       <>
         <div className="App">
           <Routes>
-            <Route exact path="//group-tasks" element={
+            <Route exact path="/group-tasks" element={
               <>
                 <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh}  >  
                 </HeaderAndSidebar>
@@ -71,7 +73,15 @@ export default function App() {
                 <>
                   <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} >
                   </HeaderAndSidebar>
-                  <Home tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
+                  <Today tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
+                </>
+              } 
+            />
+            <Route exact path="/upcoming" element={
+                <>
+                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} >
+                  </HeaderAndSidebar>
+                  <UpcomingContainer tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
                 </>
               } 
             />

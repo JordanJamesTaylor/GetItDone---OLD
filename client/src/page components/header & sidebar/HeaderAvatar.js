@@ -81,17 +81,18 @@ export default function HeaderAvatar({ user }){
                 aria-expanded={openMenu ? 'true' : undefined}
                 onClick={handleMenuClick}
             >
-            {user.avatar ? 
-                <Avatar
-                    sx={{ bgcolor: deepOrange[500], width:35, height:35 }}
-                    alt="Remy Sharp"
-                    src="/broken-image.jpg"
-                />
-                :
-                <Avatar 
-                    sx={{ width:35, height:35 }}
-                    {...stringAvatar(user.username)}  
-                />
+            {user.avatar_url ? 
+              <Avatar
+                sx={{ width: 55, height: 55 }}
+                alt="Avatar"
+                src={user.avatar_url}
+              >
+              </Avatar>
+              :
+              <Avatar 
+                  sx={{ width:35, height:35 }}
+                  {...stringAvatar(user.username)}  
+              />
             }
             </IconButton>
             <Menu

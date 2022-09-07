@@ -60,11 +60,13 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
     // Add group icon displaying group title on dropdown for each user's group 
     const mappedGroups = groupData.map((mg) => {
         return(
-            <MenuItem onClick={() => {
-                setGroup(mg.id)    
-                console.log("MG ID: ", mg.id) 
-                setAnchorGroup(null)
-            }} >
+            <MenuItem 
+                onClick={() => {
+                    setGroup(mg.id)    
+                    console.log("MG ID: ", mg.id) 
+                    setAnchorGroup(null)
+                }
+            }>
                 <ListItemText>{mg.title}</ListItemText>
             </MenuItem>
         )

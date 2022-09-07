@@ -4,6 +4,7 @@ class ProfileSerializer < ActiveModel::Serializer
   has_many :tasks do
     object.tasks.order(:end_time)
   end
+  
   has_many :groups
 
   def avatar_url
