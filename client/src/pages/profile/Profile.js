@@ -1,25 +1,28 @@
-import * as React from 'react';
+/* IMPORT DEPENDENCIES */
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import { deepOrange } from '@mui/material/colors';
-import Tiptap from '../../page components/tip tap/TipTap';
+
+/* IMPORT MATERIAL UI COMPONENTS */
+import {
+  Stack,
+  TextField,
+  Button,
+  Typography,
+  Avatar,
+  Divider,
+} from '@mui/material'
 
 export default function Profile({ user, setUser, setErrors }) {
 
   const [avatar, setAvatar] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("default");
+  const [password, setPassword] = useState("******");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
 
   let navigate = useNavigate();
 
+  // Change avatar background colour depending on username
   function stringToColor(string) {
     let hash = 0;
     let i;
@@ -40,6 +43,7 @@ export default function Profile({ user, setUser, setErrors }) {
     return color;
   }
   
+  // Deconstruct username and display first character from each word
   function stringAvatar(name) {
     return {
       sx: {
@@ -56,9 +60,6 @@ export default function Profile({ user, setUser, setErrors }) {
   function handleSubmit(e) {
       e.preventDefault();
 
-      console.log("USER ID: ", user.id)
-      console.log("PROFILE AVATAR : ", user.avatar_url)
-
       if(avatar){
         formData.append("avatar", avatar)
       };
@@ -68,7 +69,7 @@ export default function Profile({ user, setUser, setErrors }) {
       if(email){
         formData.append("email", email)
       };
-      if(password !== "default"){
+      if(password !== "******"){
         formData.append("password", password)
       };
       if(bio){
@@ -80,7 +81,6 @@ export default function Profile({ user, setUser, setErrors }) {
         body: formData,
       }).then((r) => {
       if (r.ok) {
-          console.log("PROFILE USER: ", r)
           r.json().then((user) => setUser(user));
           setErrors([])
           setAvatar("")
@@ -90,9 +90,8 @@ export default function Profile({ user, setUser, setErrors }) {
           setBio("")
       } else {
           r.json().then((err) => setErrors(err.errors));
-      }
-      });
-  }
+      }});
+  };
 
   function handleLogout(){
     fetch(`/logout`, {method: 'DELETE'})
@@ -107,8 +106,11 @@ export default function Profile({ user, setUser, setErrors }) {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h3" gutterBottom>
-          {user.username ? `Welcome ${user.username}!` : "Welcome Jordan!"}
+        <Typography 
+          variant="h3" 
+          gutterBottom
+        >
+          {`Welcome ${user.username}!`}
         </Typography>
         {user.avatar_url ? 
             <Avatar
@@ -122,16 +124,27 @@ export default function Profile({ user, setUser, setErrors }) {
               {...stringAvatar(user.username)}   
             />
         }
-        <Button variant="outlined" component="label">
+        <Button 
+          variant="outlined" 
+          component="label"
+        >
           Upload Photo
           <input hidden accept="image/" multiple type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
         </Button>
         {user.bio ? 
-          <Typography gutterBottom variant="subtitle1" component="div">
+          <Typography 
+            gutterBottom 
+            variant="subtitle1" 
+            component="div"
+          >
             {user.bio}
           </Typography>
           :
-          <Typography gutterBottom variant="subtitle1" component="div">
+          <Typography 
+            gutterBottom 
+            variant="subtitle1" 
+            component="div"
+          >
             Add a bio and let people know a bit about you!   
           </Typography>
         }
@@ -141,15 +154,15 @@ export default function Profile({ user, setUser, setErrors }) {
             alignItems="flex-start"
             spacing={1}
           >
-          <Typography variant="subtitle1" component="div">
+          <Typography 
+            variant="subtitle1" 
+            component="div"
+          >
               Update username   
           </Typography>
           <TextField 
             id="outlined-basic" 
-            label={user.username ? 
-              user.username 
-            : 
-              "Your username"} 
+            label={"Username"} 
             variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -157,7 +170,10 @@ export default function Profile({ user, setUser, setErrors }) {
           {
             password.length < 6 ? 
             <>
-              <Typography variant="subtitle1" component="div">
+              <Typography 
+                variant="subtitle1" 
+                component="div"
+              >
                 Update password
               </Typography>
               <TextField
@@ -170,7 +186,10 @@ export default function Profile({ user, setUser, setErrors }) {
             </>
             :
             <>
-              <Typography variant="subtitle1" component="div">
+              <Typography 
+                variant="subtitle1" 
+                component="div"
+              >
                 Update password
               </Typography>
               <TextField 
@@ -182,7 +201,10 @@ export default function Profile({ user, setUser, setErrors }) {
               />
             </>
           }
-          <Typography variant="subtitle1" component="div">
+          <Typography 
+            variant="subtitle1" 
+            component="div"
+          >
               Update bio
           </Typography>
           {/* 
@@ -197,16 +219,29 @@ export default function Profile({ user, setUser, setErrors }) {
           */}
           <TextField
             id="outlined-multiline-static"
-            label="Your bio"
+            label="Bio"
             multiline
             rows={3}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
-          <Button type="submit" variant="outlined" component="label" size="large" onClick={(e) => handleSubmit(e)}>
+          <Button 
+            type="submit" 
+            variant="outlined" 
+            component="label" 
+            size="large" 
+            onClick={(e) => handleSubmit(e)}
+          >
             Save Changes
           </Button>
-          <Button type="submit" variant="contained" component="label" style={{backgroundColor: "red"}} size="large" onClick={() => handleLogout()}>
+          <Button 
+            type="submit" 
+            variant="contained" 
+            component="label" 
+            style={{backgroundColor: "red"}} 
+            size="large" 
+            onClick={() => handleLogout()
+          }>
             LOG OUT
           </Button>
         </Stack>

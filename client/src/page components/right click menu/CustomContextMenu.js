@@ -10,8 +10,8 @@ export default function CustomContextMenu({ top, left, selectedContextGroup, set
 
     const navigate = useNavigate();
 
-    // top: `${top}px`,
-    // left: `${left}px`,
+    const topCord = `${top}px`
+    const leftCord = `${left}px`
 
     function deleteGroup(){
         fetch(`groups/${selectedContextGroup}`, {method: 'DELETE'})
@@ -25,11 +25,17 @@ export default function CustomContextMenu({ top, left, selectedContextGroup, set
             padding: '10px',
             boxSizing: 'border-box',
             position: 'absolute',
-            width: '200px',
-            
+            width: '225px',
+            top: topCord,
+            left: leftCord
         }}>
             <List>
-            <ListItemButton onClick={() => deleteGroup()}>
+            <ListItemButton style={{ 
+                    background: '#f8f8ff', 
+                    borderRadius: '15px',
+                    boxShadow: '5px 5px #888888',
+                }} 
+                onClick={() => deleteGroup()}>
                 <ListItem button disablePadding >
                 <ListItemIcon>
                 {<DeleteForeverIcon />}

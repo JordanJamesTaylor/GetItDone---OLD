@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 
 /* IMPORT MATERIAL UI ICONS */
-import { deepOrange } from '@mui/material/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -99,12 +98,15 @@ export default function HeaderAvatar({ user }){
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={openMenu}
-                onClose={() => handleMenuClose()}
+                onClose={() => setAnchorEl(null)}
                 MenuListProps={{
                 'aria-labelledby': 'basic-button',
                 }}
             >
-              <MenuItem onClick={() => navigate('/profile')}>
+              <MenuItem onClick={() => {
+                setAnchorEl(null) 
+                navigate('/profile')
+              }}>
                   <ListItemIcon>
                       <PortraitIcon fontSize="small" />
                   </ListItemIcon>

@@ -29,6 +29,8 @@ import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+
 
 /* IMPORT CUSTOM COMPONENTS */
 import HeaderAvatar from './HeaderAvatar';
@@ -80,13 +82,10 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
     };
 
     function openGroupContextMenu(e, id){
-      console.log("CONTEXT MENU HIT")
-      console.log("GROUP CONTEXT ID: ", id);
       setSelectedContextGroup(id)
       // Prevent right click from display default menu
       e.preventDefault();
-      // Open custom context menu
-      setShowCustomContext(true)
+      setShowCustomContext(true);
       // Set menu to render in the same location as the right click
       // ADD TO THE SIDE OF THE GROUP BUTTON -- NOT ON TOP OF IT, FIGURE OUT FIX
       //setContextPoints({x: e.pageX, y: e.pageY})
@@ -97,8 +96,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
       fetch(`/groups/${group.id}/tasks`)
       .then((r) => r.json())
       .then((data) => {
-        console.log("GROUP BUTTON - GROUP: ", group);
-        console.log("GROUP BUTTON - GROUP TASKS: ", data);
         setGroupTasks(data)
         navigate('/group-tasks')
       })
@@ -126,7 +123,12 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
         >
         <Toolbar>
           <div style={{ margin: 20 }}>
-            <HeaderAvatar user={user} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} />
+            <HeaderAvatar 
+              user={user} 
+              setUserTasks={setUserTasks} 
+              refresh={refresh} 
+              setRefresh={setRefresh} 
+            />
           </div>
           <Typography variant="h6" noWrap component="div">
             {user.username}'s To-Do-List
@@ -192,7 +194,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
             <ListItemText primary={"Add a Task"} />
           </ListItemButton>
         </ListItem>
-
           <ListItem key={"group"} disablePadding>
             <ListItemButton onClick={() => openGroup()}>
               <ListItemIcon>
@@ -201,8 +202,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
             <ListItemText primary={"Add a Group"} />
             </ListItemButton>
           </ListItem>
-
-
           <ListItem key={"today"} disablePadding>
             <ListItemButton onClick={() => navigate("/")}>
               <ListItemIcon>
@@ -219,12 +218,12 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
             <ListItemText primary={"Upcoming"} />
             </ListItemButton>
           </ListItem>
-          <ListItem key={"inbox"} disablePadding>
-            <ListItemButton>
+          <ListItem key={"past"} disablePadding>
+            <ListItemButton onClick={() => navigate("/past-due-date")}>
               <ListItemIcon>
-                {<InboxIcon />}
+                {<ErrorOutlineOutlinedIcon />}
               </ListItemIcon>
-            <ListItemText primary={"Inbox"} />
+            <ListItemText primary={"Past Due Date"} />
             </ListItemButton>
           </ListItem>
           <ListItem key={"profile"} disablePadding>
@@ -267,7 +266,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
               {showCustomContext && <CustomContextMenu top={contextPoints.x} left={contextPoints.y} selectedContextGroup={selectedContextGroup} setRefresh={setRefresh}/>}
             </>
           </List>
-          
         </List>
         }
         </List>

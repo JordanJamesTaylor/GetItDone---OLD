@@ -22,7 +22,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 
-// Set styling modal container 
+// Set styling for modal container 
 const boxStyle = {
     position: 'absolute',
     top: '50%',
@@ -46,8 +46,6 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
     const [priority, setPriority] = useState(0);
     const [group, setGroup] = useState(0);
     const [dateTime, setDateTime] = useState(new Date());
-
-    
     const [anchorPriority, setAnchorPriority] = useState(null);
     const [anchorClock, setAnchorClock] = useState(null);
     const [anchorGroup, setAnchorGroup] = useState(null);
@@ -63,14 +61,13 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
             <MenuItem 
                 onClick={() => {
                     setGroup(mg.id)    
-                    console.log("MG ID: ", mg.id) 
                     setAnchorGroup(null)
                 }
             }>
                 <ListItemText>{mg.title}</ListItemText>
             </MenuItem>
         )
-    })
+    });
 
     // Open priority menu
     function handlePriorityMenuClick(event) {
@@ -258,15 +255,10 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
                         'aria-labelledby': 'basic-button',
                         }}
                     >
-
-
                         {mappedGroups}
-                    
-
-
                     </Menu>
                     <Stack
-                        direction="row" 
+                        direction="row"
                         spacing={2}
                         alignItems="center"
                     >
@@ -296,4 +288,4 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
             </Box>
         </>
     )
-}
+};

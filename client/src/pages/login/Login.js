@@ -57,7 +57,6 @@ export default function Login({ user, setUser, setErrors }){
           <SignIn user={user} setUser={setUser} setErrors={setErrors} setSignIn={setSignIn} setinvalidLogin={setinvalidLogin} /> 
           : 
           <>
-    
             <SignUp user={user} setUser={setUser} setErrors={setErrors} setSignIn={setSignIn} setInvalidPassword={setInvalidPassword} />
           </>
       }        

@@ -1,15 +1,23 @@
+/* IMPORT DEPENDENCIES */
 import * as React from 'react';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import { format } from 'date-fns'
+
+/* IMPORT MATERIAL UI COMPONENTS */ 
+import { 
+  styled,
+  Grid,
+  Checkbox,
+  Paper,
+  Typography,
+  CardContent,
+  CardActions,
+  Collapse,
+  Divider,
+  IconButton,
+} from '@mui/material';
+
+/* IMPORT MATERIAL UI ICONS */
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -37,7 +45,7 @@ const Img = styled('img')({
 export default function GroupTask({ id, title, notes, categories, priority, end_time, expired, setRefresh }) {
 
   const [expanded, setExpanded] = useState(false);
-  
+
   // TEMP: Remove when file upload is functional
   const image = false
   
@@ -53,37 +61,45 @@ export default function GroupTask({ id, title, notes, categories, priority, end_
   const displayPriority = () => {
     if(priority === 1){
       return(
-        <>
-          <Typography paragraph>Priority Level: HIGH</Typography>
-        </>
+          <Typography paragraph style={{ color: 'red' }}>Priority Level: HIGH</Typography>
       )
     }else if(priority === 2){
       return(
-        <>
-          <Typography paragraph>Priority Level: MEDIUM</Typography>
-        </>
+          <Typography paragraph style={{ color: 'blue' }}>Priority Level: MEDIUM</Typography>
       )
     }else{
       return(
-        <>
-          <Typography paragraph>Priority Level: LOW</Typography>
-        </>
+          <Typography paragraph style={{ color: 'green' }}>Priority Level: LOW</Typography>
       )
     }
   }
 
+  //const date = new Date(end_time)
+
+  // Format date and time
+  // const formattedCalendar = format(date, 'dd/MM/yyyy');
+  // const formattedTime = format(date, 'H:mm');
+  // const formattedDate = `${formattedCalendar} by ${formattedTime}`
+
   function displayDateTime(){
+
+    const date = new Date(end_time)
+
+    // Format date and time
+    const formattedCalendar = format(date, 'dd/MM/yyyy');
+    const formattedTime = format(date, 'H:mm');
+    const formattedDate = `${formattedCalendar} by ${formattedTime}`
 
     if(expired){
       return(
         <Typography paragraph color="red">
-          {`PAST DUE DATE ${end_time}`}
+          {`PAST DUE DATE ${formattedDate}`}
         </Typography>
       )
     }else{
       return(
         <Typography paragraph>
-          {`By ${end_time}`}
+          {`DUE DATE ${formattedDate}`}
         </Typography>
       )
     };
@@ -163,4 +179,4 @@ export default function GroupTask({ id, title, notes, categories, priority, end_
       </Collapse>
     </Paper>
   );
-}
+};
