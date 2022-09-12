@@ -15,7 +15,7 @@ class Profile < ApplicationRecord
 
     validates :username, :email, :password, presence: true
     validates :email, :username, uniqueness: true
-    validates :password, :username, length: { in: 6..20 }
+    validates :password, length: { in: 6..20 }
 
     # CHECKS THAT PASSWORD CONTAINS A SPECIAL CHACATER, AT LEAST 6 CHARACTERS, AT LEAST ONE UPPER AND LOWER CASE LETTER, AND ONE NUMBER
     # TO BE TESTED 

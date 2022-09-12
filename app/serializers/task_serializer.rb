@@ -1,5 +1,5 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id, :title, :notes, :categories, :tags, :priority, :end_time, :profile_id, :group_id, :subtask_id
+  attributes :id, :title, :notes, :categories, :tags, :priority, :end_time, :elapsed, :notified, :profile_id, :group_id, :subtask_id
 
   # Allows user to NOT add a file to their task
   

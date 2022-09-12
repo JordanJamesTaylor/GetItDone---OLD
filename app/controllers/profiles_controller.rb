@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
     
     def create
         profile = Profile.create!(profile_params)
+        UsersMailer.with(user: profile).welcome.deliver_later
         session[:profile_id] = profile.id
         render json: profile, status: :created
     end
