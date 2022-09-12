@@ -1,5 +1,26 @@
+/*
 .App {
   text-align: center;
+}
+*/
+
+#profile-Container {
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  gap: 10px;
+  background-color: red;
+  padding: 10px;
+}
+
+#Profile-Toolbar {
+  grid-area: header;
+}
+
+#Profile {
+  grid-area: right;
+  border-style: solid;
 }
 
 .App-logo {

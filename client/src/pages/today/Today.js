@@ -15,7 +15,7 @@ export default function Today({ tasks, refresh, setRefresh}){
   
     if(today.getDay() === taskDay){
       return(
-        <li style={{ margin: 20 }}>
+        <div style={{ margin: 20 }}>
           <Task 
             key={task.id} 
             id={task.id} 
@@ -28,14 +28,14 @@ export default function Today({ tasks, refresh, setRefresh}){
             refresh={refresh} 
             setRefresh={setRefresh} 
           />     
-        </li>
+        </div>
       )
     }
   });
 
   return(
-    <ol>
+    <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
       {tasksForToday}
-    </ol>
+    </div>
   )
 };

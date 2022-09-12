@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 
 /* IMPORT MATERIAL UI ICONS */
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import EventSharpIcon from '@mui/icons-material/EventSharp';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import ArrowDropUpSharpIcon from '@mui/icons-material/ArrowDropUpSharp';
@@ -31,7 +30,6 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 
-
 /* IMPORT CUSTOM COMPONENTS */
 import HeaderAvatar from './HeaderAvatar';
 import AddTask from '../tasks/AddTask';
@@ -40,9 +38,9 @@ import GroupIcon from '../groups/GroupIcon';
 import CustomContextMenu from '../right click menu/CustomContextMenu';
 
 // Set width of tool bar
-const drawerWidth = 240;
+const drawerWidth = 280;
 
-export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTasks, user, setGroupData, groupData, refresh, setRefresh }){
+export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTasks, user, groupData, refresh, setRefresh }){
 
     const [dropDown, setDropDown] = useState(false);
     const [open, setModalOpen] = useState(false);
@@ -148,7 +146,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
           anchor="left"
         >
         <Toolbar />
-        <Divider />
+        
         <List>
         {/*CONDTIONAL FOR DISPLAYING THE TASK AND GROUP MODELS*/}
         {
@@ -185,7 +183,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
               />
             </Modal>
         }    
-
         <ListItem key={"task"} disablePadding>
           <ListItemButton onClick={() => openTask()}>
             <ListItemIcon>

@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -13,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalidLogin }) {
+export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalidLogin, noProfile}) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -28,6 +26,7 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
 
         if(password < 6){
           setinvalidLogin(true);
+          noProfile();
         };
     
         fetch("/login", { 
@@ -42,7 +41,7 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
               r.json().then((user) => setUser(user));
               console.log("LOGGED IN")
               setErrors([])
-              navigate("/")
+              navigate("/profile")
           } else {
               setinvalidLogin(true);
               r.json().then((err) => setErrors(err.errors));
@@ -89,10 +88,6 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

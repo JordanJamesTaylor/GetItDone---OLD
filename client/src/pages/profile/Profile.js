@@ -45,6 +45,7 @@ export default function Profile({ user, setUser, setErrors }) {
   
   // Deconstruct username and display first character from each word
   function stringAvatar(name) {
+    
     return {
       sx: {
         width: 250, 
@@ -99,12 +100,11 @@ export default function Profile({ user, setUser, setErrors }) {
   } ;
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
       <Stack 
         direction="column" 
         spacing={2}
-        justifyContent="center"
-        alignItems="center"
+        style={{ alignItems: "center" }}
       >
         <Typography 
           variant="h3" 
@@ -121,7 +121,7 @@ export default function Profile({ user, setUser, setErrors }) {
             </Avatar>
           :
             <Avatar 
-              {...stringAvatar(user.username)}   
+              {...stringAvatar((`${user.first_name} ${user.last_name}`))}   
             />
         }
         <Button 
@@ -148,12 +148,10 @@ export default function Profile({ user, setUser, setErrors }) {
             Add a bio and let people know a bit about you!   
           </Typography>
         }
-        <Divider>Update  profile</Divider>
-        <Stack
-            justifyContent="center"
-            alignItems="flex-start"
-            spacing={1}
-          >
+        </Stack>
+        <Divider></Divider>
+        <Typography style={{ marginTop: 10 }} variant="h6">Update  profile</Typography>
+        <Stack>
           <Typography 
             variant="subtitle1" 
             component="div"
@@ -164,6 +162,7 @@ export default function Profile({ user, setUser, setErrors }) {
             id="outlined-basic" 
             label={"Username"} 
             variant="outlined"
+            style={{ width: "100%", margin: 5 }}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -180,12 +179,13 @@ export default function Profile({ user, setUser, setErrors }) {
                 error
                 id="outlined-error-helper-text"
                 helperText="Must be 6 or more characters long."
+                style={{ width: "100%", margin: 5 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </>
             :
-            <>
+            <div>
               <Typography 
                 variant="subtitle1" 
                 component="div"
@@ -196,10 +196,11 @@ export default function Profile({ user, setUser, setErrors }) {
                 id="outlined-basic" 
                 label="Your password" 
                 variant="outlined"
+                style={{ width: "100%", margin: 5 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} 
               />
-            </>
+            </div>
           }
           <Typography 
             variant="subtitle1" 
@@ -220,16 +221,19 @@ export default function Profile({ user, setUser, setErrors }) {
           <TextField
             id="outlined-multiline-static"
             label="Bio"
+            style={{ width: "100%", margin: 5 }}
             multiline
-            rows={3}
+            rows={2}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
+          <div style={{ marginTop: 10 }} >
           <Button 
             type="submit" 
             variant="outlined" 
             component="label" 
             size="large" 
+            style={{ margin: 5 }}
             onClick={(e) => handleSubmit(e)}
           >
             Save Changes
@@ -238,14 +242,14 @@ export default function Profile({ user, setUser, setErrors }) {
             type="submit" 
             variant="contained" 
             component="label" 
-            style={{backgroundColor: "red"}} 
+            style={{backgroundColor: "red",  margin: 5, paddingRight: '48px', paddingLeft: '48px'}} 
             size="large" 
             onClick={() => handleLogout()
           }>
             LOG OUT
           </Button>
+          </div>
         </Stack>
-      </Stack>
-    </>
+    </div>
   );
 }

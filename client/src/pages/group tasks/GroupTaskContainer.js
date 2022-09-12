@@ -29,7 +29,7 @@ export default function GroupTaskContainer({ groupData, groupTasks, setRefresh }
     }
 
     return(
-      <li style={{ margin: 20 }}>
+      <div style={{ margin: 20 }}>
         <GroupTask 
           key={group.id} 
           id={group.id} 
@@ -41,13 +41,13 @@ export default function GroupTaskContainer({ groupData, groupTasks, setRefresh }
           expired={expired}     
           setRefresh={setRefresh}
         />     
-      </li>
+      </div>
     )
   });
 
   return(
-    <ol>
+    <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
       {mappedTasks}
-    </ol>
+    </div>
   )
 };

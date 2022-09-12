@@ -71,7 +71,7 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
             const formattedDate = `${formattedCalendar} by ${formattedTime}`
 
             return(
-              <ol style={{ margin: 20 }}>
+              <div style={{ margin: 20 }}>
                 <Task 
                   key={task.id} 
                   id={task.id} 
@@ -84,7 +84,7 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
                   refresh={refresh} 
                   setRefresh={setRefresh} 
                 />     
-              </ol>
+              </div>
           )
         }else{
           <></>
@@ -95,8 +95,8 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
     }))};  
 
     return(
-      <ol>
+      <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
         {monthHeaderWithTasks()}
-      </ol>
+      </div>
     )
 };

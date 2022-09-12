@@ -19,7 +19,7 @@ export default function PastDueDate({ tasks, refresh, setRefresh}){
   
     if(checkForExpired < 0){
       return(
-        <li style={{ margin: 20 }}>
+        <div style={{ margin: 20 }}>
           <Task 
             key={task.id} 
             id={task.id} 
@@ -32,14 +32,14 @@ export default function PastDueDate({ tasks, refresh, setRefresh}){
             refresh={refresh} 
             setRefresh={setRefresh} 
           />     
-        </li>
+        </div>
       )
     }
   });
 
   return(
-    <ol>
+    <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
       {expiredTasks}
-    </ol>
+    </div>
   )
 };

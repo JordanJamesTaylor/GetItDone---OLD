@@ -90,7 +90,7 @@ export default function HeaderAvatar({ user }){
               :
               <Avatar 
                   sx={{ width:35, height:35 }}
-                  {...stringAvatar(user.username)}  
+                  {...stringAvatar((`${user.first_name} ${user.last_name}`))}  
               />
             }
             </IconButton>
