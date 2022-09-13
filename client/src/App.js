@@ -13,7 +13,7 @@ import Profile from "./pages/profile/Profile"
 import GroupTaskContainer from "./pages/group tasks/GroupTaskContainer";
 import UpcomingContainer from "./pages/upcoming/UpcomingContainer";
 import PastDueDate from "./pages/tasks past due date/PastDueDate";
-import TempTask from "./page components/tasks/TempTask";
+import SearchedTasks from "./page components/tasks/SearchedTasks";
 
 /* IMPORT MATERIAL UI COMPONENTS */
 import Box from '@mui/material/Box';
@@ -35,6 +35,8 @@ export default function App() {
   const [errors, setErrors] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [checker, setChecker] = useState(false);
+
+  const [searchTask, setSearchTask] = useState(null);
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -95,7 +97,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [checker, user]);
 
-  if (!user){
+  if (!user && !loaded){
     return(
       <>
         <ToastContainer />
@@ -116,7 +118,7 @@ export default function App() {
         </ListItem>
       </List>
     </Box>
-  );
+    );
   }else{
     taskElapsed()
     return (
@@ -125,7 +127,7 @@ export default function App() {
           <Routes>
             <Route exact path="/group-tasks" element={
               <>
-                <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={user.groups} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh}  >  
+                <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={user.groups} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >  
                 </HeaderAndSidebar>
                 <GroupTaskContainer groupData={groupData} groupTasks={groupTasks} setGroupTasks={setGroupTasks} setRefresh={setRefresh} />
               </>
@@ -133,7 +135,7 @@ export default function App() {
             />
             <Route exact path="/profile" element={
               <>
-                <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh}  >  
+                <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >  
                 </HeaderAndSidebar>
                 <Profile user={user} setUser={setUser} setErrors={setErrors} />
               </>
@@ -141,7 +143,7 @@ export default function App() {
             />
             <Route exact path="/" element={
                 <>
-                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} >
+                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
                   </HeaderAndSidebar>
                   <Today style={{ padding: "10px, 10px, 10px, 50px" }} tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
                 </>
@@ -149,21 +151,23 @@ export default function App() {
             />
             <Route exact path="/upcoming" element={
                 <>
-                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} >
+                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
                   </HeaderAndSidebar>
                   <UpcomingContainer tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
                 </>
               } 
             />
-            <Route exact path="/temp" element={
+            <Route exact path="/searched-task" element={
                 <>
-                  <TempTask />
+                  <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
+                  </HeaderAndSidebar>
+                  <SearchedTasks task={searchTask} refresh={refresh} setRefresh={setRefresh} />
                 </>
               } 
             />
             <Route exact path="/past-due-date" element={
               <>
-                <HeaderAndSidebar user={user} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData}>  
+                <HeaderAndSidebar user={user} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} searchTask={searchTask} setSearchTask={setSearchTask} >  
                 </HeaderAndSidebar>
                 <PastDueDate tasks={user.tasks} setRefresh={setRefresh} />
               </>
@@ -174,5 +178,5 @@ export default function App() {
         </div>
     </>  
   );
-  }
+  };
 };

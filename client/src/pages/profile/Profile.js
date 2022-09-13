@@ -106,7 +106,8 @@ export default function Profile({ user, setUser, setErrors }) {
         spacing={2}
         style={{ alignItems: "center" }}
       >
-        <Typography 
+        <Typography
+          style={{ marginTop: "40px" }} 
           variant="h3" 
           gutterBottom
         >
@@ -149,8 +150,9 @@ export default function Profile({ user, setUser, setErrors }) {
           </Typography>
         }
         </Stack>
-        <Divider></Divider>
-        <Typography style={{ marginTop: 10 }} variant="h6">Update  profile</Typography>
+        <Divider style={{ marginTop: "50px"}}></Divider>
+          <Typography style={{ marginTop: 10 }} variant="h6">Update your profile below</Typography>
+        <Divider style={{ marginTop: "10px"}}></Divider>
         <Stack>
           <Typography 
             variant="subtitle1" 

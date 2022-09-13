@@ -7,6 +7,8 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.string :tags
       t.integer :priority
       t.datetime :end_time
+      t.boolean :elapsed, default: false
+      t.boolean :notified, default: false
       t.string :file
       t.integer :profile_id
       t.integer :group_id

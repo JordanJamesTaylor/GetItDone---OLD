@@ -5,6 +5,9 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Stack from '@mui/material/Stack';
 
 const boxStyle = {
     position: 'absolute',
@@ -48,10 +51,7 @@ export default function AddGroup({ setModalOpen, setRefresh, setAddGroup, user }
                     xs={12}
                     rowSpacing={2}
                 >
-                <Grid 
-                    item 
-                    xs={12}  
-                >
+                    <Typography variant="h4">Add Group</Typography>
                     <TextField 
                         id="fullWidth" 
                         fullWidth 
@@ -59,27 +59,24 @@ export default function AddGroup({ setModalOpen, setRefresh, setAddGroup, user }
                         label="Add a Group Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} 
-                    />
-                    
+                    />  
                 </Grid>
-                <Grid 
-                    item 
-                    xs={4} 
-                >
+                <Stack
+                    style={{ marginLeft: "440px", marginTop: "15px" }}
+                    direction="row"
+                    spacing={3}
+                    alignItems="center"
+                    >
                     <Button 
                         type="submit" 
                         variant="outlined" 
                         component="label" 
                         placement="right"
+                        startIcon={<HighlightOffIcon />}
                         onClick={() => setModalOpen(false)}
                     >
                     Cancel
                     </Button>
-                </Grid>
-                <Grid 
-                    item 
-                    xs={4} 
-                >    
                     <Button 
                         type="submit" 
                         variant="contained" 
@@ -90,8 +87,7 @@ export default function AddGroup({ setModalOpen, setRefresh, setAddGroup, user }
                     >
                     Add Group
                     </Button>
-                </Grid>
-                </Grid>
+                </Stack>
             </Box>
         </>
     )

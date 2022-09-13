@@ -43,20 +43,23 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Task({ id, title, notes, categories, priority, end_time, setRefresh, expired }) {
+export default function SearchedTask({ task, setRefresh }) {
 
   const [expanded, setExpanded] = useState(false);
 
+  if(!task){
+    return null
+  }
   /* TEMP VAR -- REMOVE WHEN ABLE TO ADD FILES TO TASK */
   const image = false
 
   // Conditional text display priority level based on user input
   const displayPriority = () => {
-    if(priority === 1){
+    if(task.priority === 1){
       return(
           <Typography paragraph style={{ color: 'red' }}>Priority Level: HIGH</Typography>
       )
-    }else if(priority === 2){
+    }else if(task.priority === 2){
       return(
           <Typography paragraph style={{ color: 'blue' }}>Priority Level: MEDIUM</Typography>
       )
@@ -68,26 +71,27 @@ export default function Task({ id, title, notes, categories, priority, end_time,
   }
 
   function displayDateTime(){
-    if(expired){
+    if(task.expired){
       return(
-        <Typography paragraph color="red">{`PAST DUE DATE ${end_time}`}</Typography>
+        <Typography paragraph color="red">{`PAST DUE DATE ${task.end_time}`}</Typography>
       )
-    }else if(expired === 'Today'){
+    }else if(task.expired === 'Today'){
       <Typography paragraph color="red">{`DUE TODAY`}</Typography>
     }else{
       return(
-        <Typography paragraph>{`DUE DATE: ${end_time}`}</Typography>
+        <Typography paragraph>{`DUE DATE: ${task.end_time}`}</Typography>
       )
     };
   }
 
   // Remove a task from DB and UI on checkbox is clicked on task card
   function handleCheck(){
-    fetch(`/tasks/${id}`, {method: 'DELETE'})
+    fetch(`/tasks/${task.id}`, {method: 'DELETE'})
     .then(setRefresh(true))
   } ;
 
   return (
+    <li style={{ marginLeft: "12%" }}>
     <Paper
       sx={{
         p: 2,
@@ -130,13 +134,13 @@ export default function Task({ id, title, notes, categories, priority, end_time,
                 variant="subtitle1" 
                 component="div"
               >
-                {title}
+                {task.title}
               </Typography>
               <Typography 
                 variant="body2" 
                 color="text.secondary"
               >
-                {categories}    
+                {task.categories}    
               </Typography>
             </Grid>
           </Grid>          
@@ -181,10 +185,11 @@ export default function Task({ id, title, notes, categories, priority, end_time,
         <CardContent>
           <Typography paragraph>Notes:</Typography>
           <Typography paragraph>
-            {notes}
+            {task.notes}
           </Typography>
         </CardContent>
       </Collapse>
     </Paper>
+    </li>
   );
 }

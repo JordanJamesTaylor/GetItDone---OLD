@@ -1,22 +1,16 @@
 print 'SEEDING USER'
-Profile.create!(username: "James Dean", email: "james@email.com", password: '123456');
+Profile.create!(first_name: "James", last_name: "Dean", username: "James Dean", email: "james@email.com", password: '123456');
 
 print 'SEEDING GROUPS'
-Group.create!(title: 'Group One', profile_id: 1);
-Group.create!(title: 'Group Two', profile_id: 1);
-Group.create!(title: 'Group Three', profile_id: 1);
+Group.create!(title: 'Capstone Project', profile_id: 1);
+Group.create!(title: 'Personal', profile_id: 1);
+Group.create!(title: 'Fitness', profile_id: 1);
+Group.create!(title: 'Groceries', profile_id: 1);
+Group.create!(title: 'Misc', profile_id: 1);
 
-print 'SEEDING TASKS'
-Task.create!(title: "Today's Task", profile_id: 1, end_time: Date.today);
-Task.create!(title: 'Task Two', profile_id: 1);
-Task.create!(title: 'Task Three', profile_id: 1);
-
-print 'SEEDING GROUP TASKS'
-Task.create!(title: 'Task One For Group One', profile_id: 1, group_id: 1);
-Task.create!(title: 'Task One For Group TWO', profile_id: 1, group_id: 2);
-Task.create!(title: 'Task Two For Group TWO', profile_id: 1, group_id: 2);
-Task.create!(title: 'Task One For Group THREE', profile_id: 1, group_id: 3);
-Task.create!(title: 'Task Two For Group THREE', profile_id: 1, group_id: 3);
-Task.create!(title: 'Task Three For Group THREE', profile_id: 1, group_id: 3);
+#print 'SEEDING TASKS'
+Task.create!(title: 'Buy dog food', profile_id: 1, end_time: Date.today);
+Task.create!(title: "Go to the gym", profile_id: 1, end_time: Date.today);
+Task.create!(title: 'Buy human food', profile_id: 1, end_time: Date.today);
 
 print 'DONE SEEDING'

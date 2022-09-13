@@ -36,11 +36,12 @@ import AddTask from '../tasks/AddTask';
 import AddGroup from '../groups/AddGroup';
 import GroupIcon from '../groups/GroupIcon';
 import CustomContextMenu from '../right click menu/CustomContextMenu';
+import HeaderSearch from './HeaderSearch';
 
 // Set width of tool bar
 const drawerWidth = 280;
 
-export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTasks, user, groupData, refresh, setRefresh }){
+export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTasks, user, groupData, refresh, setRefresh, searchTask, setSearchTask }){
 
     const [dropDown, setDropDown] = useState(false);
     const [open, setModalOpen] = useState(false);
@@ -119,7 +120,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
           position="fixed"
           sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
         >
-        <Toolbar>
+        <Toolbar style={{ background: '#01298B' }}>
           <div style={{ margin: 20 }}>
             <HeaderAvatar 
               user={user} 
@@ -131,6 +132,9 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
           <Typography variant="h6" noWrap component="div">
             {user.username}'s To-Do-List
           </Typography>
+          <div style={{ marginLeft: "60%" }}>
+            <HeaderSearch tasks={user.tasks} searchTask={searchTask} setSearchTask={setSearchTask} />
+          </div>
         </Toolbar>
         </AppBar>
         <Drawer
