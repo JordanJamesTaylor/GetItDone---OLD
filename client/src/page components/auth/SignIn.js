@@ -20,9 +20,6 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-        console.log("USERNAME: ", username)
-        console.log("PASSWORD: ", password)
 
         if(password < 6){
           setinvalidLogin(true);
@@ -39,7 +36,6 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
           }).then((r) => {
           if (r.ok) {
               r.json().then((user) => setUser(user));
-              console.log("LOGGED IN")
               setErrors([])
               navigate("/profile")
           } else {

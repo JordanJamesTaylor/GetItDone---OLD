@@ -74,7 +74,6 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
 
     // Open task model if user clicked group icopn 
     function openGroup(){
-      console.log("OPEN MAKE GROUP MODAL")
       setAddTask(false)
       setAddGroup(true)
       setModalOpen(true)
@@ -132,9 +131,9 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
           <Typography variant="h6" noWrap component="div">
             {user.username}'s To-Do-List
           </Typography>
-          <div style={{ marginLeft: "60%" }}>
+          <span style={{ width: "60%" }}>
+          </span>
             <HeaderSearch tasks={user.tasks} searchTask={searchTask} setSearchTask={setSearchTask} />
-          </div>
         </Toolbar>
         </AppBar>
         <Drawer

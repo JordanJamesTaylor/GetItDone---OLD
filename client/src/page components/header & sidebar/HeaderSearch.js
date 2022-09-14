@@ -14,14 +14,10 @@ export default function HeaderSearch({ tasks, searchTask, setSearchTask }) {
         value={searchTask}
         onChange={(event, newValue) => {
             if (typeof newValue === 'string' && newValue) {
-                console.log("STRING VALUE: ", newValue)
-                console.log("STRING EVENT: ", event)
                 setSearchTask({
                     title: newValue,
                 });
             } else if (newValue && newValue.inputValue) {
-                console.log("NONE VALUE: ", newValue)
-                console.log("NONE EVENT: ", event)
                 // Create a new value from the user input
                 setSearchTask({
                 title: newValue.inputValue,
@@ -30,8 +26,6 @@ export default function HeaderSearch({ tasks, searchTask, setSearchTask }) {
                 console.log("BAD SEARCH")
                 console.log(newValue)
             } else{
-                console.log("OTHER", newValue)
-                console.log("OTHER: ", event)
                 setSearchTask(newValue);
                 navigate("/searched-task")
             }
@@ -77,7 +71,7 @@ export default function HeaderSearch({ tasks, searchTask, setSearchTask }) {
         sx={{ width: 300 }}
         freeSolo
         renderInput={(params) => (
-            <TextField {...params} label="Search by task title..." style={{ background: "#52A2DA", borderRadius: "25px"}} />
+            <TextField variant="filled" {...params} label="Search by task title..." style={{ background: "#F1F1F1" }} />
         )}
         />
     );

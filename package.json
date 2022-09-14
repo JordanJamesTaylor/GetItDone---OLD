@@ -1,5 +1,5 @@
 {
-    "name": "to-do-list-app",
+    "name": "getitdone",
     "description": "Build scripts for Heroku",
     "engines": {
         "node": ">= 14"

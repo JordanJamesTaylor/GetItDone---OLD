@@ -58,11 +58,15 @@ export default function App() {
     user.tasks.map((task) => {
       if(task.elapsed && !task.notified){
         addNotification({
-          title: `${task.title}`,
-          subtitle: 'Please fill it',
-          message: `You need to ${task.title}`,
+          title: 'GetItDone wants to let you know...',
+          subtitle: `${task.title} has elapsed`,
+          message: `It's time to ${task.title}`,
           theme: 'red',
           closeButton:"X",
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          },
           native: true
       })
       fetch(`/tasks/${task.id}`, {

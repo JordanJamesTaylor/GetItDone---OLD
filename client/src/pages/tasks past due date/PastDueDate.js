@@ -11,7 +11,6 @@ export default function PastDueDate({ tasks, refresh, setRefresh}){
 
     const date = new Date(task.end_time);
     const checkForExpired = date - new Date();
-    console.log("PAST DUE CHECK: ", task)
     // Format date and time
     const formattedCalendar = format(date, 'dd/MM/yyyy');
     const formattedTime = format(date, 'H:mm');

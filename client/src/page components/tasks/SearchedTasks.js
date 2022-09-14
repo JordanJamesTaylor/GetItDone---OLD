@@ -1,6 +1,7 @@
 /* IMOPORT DEPENDENCIES */ 
 import * as React from 'react';
 import { useState } from 'react';
+import { format } from 'date-fns'
 
 /* IMPORT MATERIAL UI COMPONENTS */
 import {
@@ -71,15 +72,27 @@ export default function SearchedTask({ task, setRefresh }) {
   }
 
   function displayDateTime(){
-    if(task.expired){
+
+    const date = new Date(task.end_time)
+    const formattedDate = format(date, 'dd/MM/yyyy H:mm');
+
+    const checkForExpired = new Date(task.end_time) - new Date();
+
+    let expired = false
+
+    if(checkForExpired < 0){
+      expired = true
+    }else{
+      expired = false
+    };
+
+    if(expired){
       return(
-        <Typography paragraph color="red">{`PAST DUE DATE ${task.end_time}`}</Typography>
+        <Typography paragraph color="red">{`PAST DUE DATE ${formattedDate}`}</Typography>
       )
-    }else if(task.expired === 'Today'){
-      <Typography paragraph color="red">{`DUE TODAY`}</Typography>
     }else{
       return(
-        <Typography paragraph>{`DUE DATE: ${task.end_time}`}</Typography>
+        <Typography paragraph>{`DUE DATE: ${formattedDate}`}</Typography>
       )
     };
   }
