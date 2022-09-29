@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 /* IMPORT COMPONENTS */
 import Task from "../../page components/tasks/Task";
 
-export default function PastDueDate({ tasks, refresh, setRefresh}){
+export default function PastDueDate({ tasks, refresh, setRefresh, shootConfetti, setShootConfetti}){
 
   const expiredTasks = tasks.map((task) => {
 
@@ -29,7 +29,9 @@ export default function PastDueDate({ tasks, refresh, setRefresh}){
             end_time={formattedDate} 
             expired={true}
             refresh={refresh} 
-            setRefresh={setRefresh} 
+            setRefresh={setRefresh}
+            shootConfetti={shootConfetti} 
+            setShootConfetti={setShootConfetti}
           />     
         </div>
       )

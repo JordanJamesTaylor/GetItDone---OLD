@@ -1,5 +1,6 @@
 /* IMOPORT DEPENDENCIES */ 
 import * as React from 'react';
+import Confetti from 'react-confetti'
 import { useState } from 'react';
 
 /* IMPORT MATERIAL UI COMPONENTS */
@@ -43,7 +44,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Task({ id, title, notes, categories, priority, end_time, setRefresh, expired }) {
+export default function Task({ id, title, notes, categories, priority, end_time, setRefresh, expired, shootConfetti, setShootConfetti }) {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -83,9 +84,11 @@ export default function Task({ id, title, notes, categories, priority, end_time,
 
   // Remove a task from DB and UI on checkbox is clicked on task card
   function handleCheck(){
+    setShootConfetti(!shootConfetti)
+    
     fetch(`/tasks/${id}`, {method: 'DELETE'})
     .then(setRefresh(true))
-  } ;
+  };
 
   return (
     <Paper
@@ -129,6 +132,7 @@ export default function Task({ id, title, notes, categories, priority, end_time,
                 gutterBottom 
                 variant="subtitle1" 
                 component="div"
+                style={{ fontWeight: "700", marginTop: "6px"}}
               >
                 {title}
               </Typography>
@@ -153,7 +157,7 @@ export default function Task({ id, title, notes, categories, priority, end_time,
           item 
           xs={12}
         >
-          <Typography>{`Target Completion Date:`}</Typography>
+          <Typography style={{ marginTop: "6px"}} >{`Target Completion Date:`}</Typography>
         </Grid>
         <Grid 
           item 

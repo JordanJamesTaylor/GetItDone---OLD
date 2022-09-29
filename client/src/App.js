@@ -1,7 +1,6 @@
 /* IMPORT DEPENDENCIES */
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Notifications } from 'react-push-notification';
 import addNotification from 'react-push-notification';
 import { ToastContainer } from "react-toastify";
 
@@ -14,6 +13,7 @@ import GroupTaskContainer from "./pages/group tasks/GroupTaskContainer";
 import UpcomingContainer from "./pages/upcoming/UpcomingContainer";
 import PastDueDate from "./pages/tasks past due date/PastDueDate";
 import SearchedTasks from "./page components/tasks/SearchedTasks";
+import Confetti from "./page components/animations/Confetti";
 
 /* IMPORT MATERIAL UI COMPONENTS */
 import Box from '@mui/material/Box';
@@ -35,8 +35,9 @@ export default function App() {
   const [errors, setErrors] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [checker, setChecker] = useState(false);
-
   const [searchTask, setSearchTask] = useState(null);
+
+  const [shootConfetti, setShootConfetti] = useState(false);
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -52,6 +53,12 @@ export default function App() {
     });
     // eslint-disable-next-line
   }, [refresh]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShootConfetti(false)
+    }, "3000")
+  }, [shootConfetti]);
   
   function taskElapsed(){
 
@@ -60,7 +67,7 @@ export default function App() {
         addNotification({
           title: 'GetItDone wants to let you know...',
           subtitle: `${task.title} has elapsed`,
-          message: `It's time to ${task.title}`,
+          message: `${task.title}`,
           theme: 'red',
           closeButton:"X",
           dismiss: {
@@ -133,10 +140,11 @@ export default function App() {
               <>
                 <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={user.groups} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >  
                 </HeaderAndSidebar>
-                <GroupTaskContainer groupData={groupData} groupTasks={groupTasks} setGroupTasks={setGroupTasks} setRefresh={setRefresh} />
+                <GroupTaskContainer user={user} groupData={groupData} groupTasks={groupTasks} setGroupTasks={setGroupTasks} setRefresh={setRefresh} shootConfetti={shootConfetti} setShootConfetti={setShootConfetti}/>
+                <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
               </>
               } 
-            />
+              />
             <Route exact path="/profile" element={
               <>
                 <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >  
@@ -144,39 +152,49 @@ export default function App() {
                 <Profile user={user} setUser={setUser} setErrors={setErrors} />
               </>
               } 
-            />
+              />
             <Route exact path="/" element={
-                <>
+              <>
                   <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
                   </HeaderAndSidebar>
-                  <Today style={{ padding: "10px, 10px, 10px, 50px" }} tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
+                  <Today style={{ padding: "10px, 10px, 10px, 50px" }} tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} shootConfetti={shootConfetti} setShootConfetti={setShootConfetti}/>
+                  <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
                 </>
               } 
-            />
+              />
             <Route exact path="/upcoming" element={
-                <>
+              <>
                   <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
                   </HeaderAndSidebar>
-                  <UpcomingContainer tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} />
+                  <UpcomingContainer tasks={user.tasks} refresh={refresh} setRefresh={setRefresh} shootConfetti={shootConfetti} setShootConfetti={setShootConfetti}/>
+                  <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
                 </>
               } 
             />
             <Route exact path="/searched-task" element={
-                <>
+              <>
                   <HeaderAndSidebar user={user} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} searchTask={searchTask} setSearchTask={setSearchTask} >
                   </HeaderAndSidebar>
-                  <SearchedTasks task={searchTask} refresh={refresh} setRefresh={setRefresh} />
+                  <SearchedTasks task={searchTask} refresh={refresh} setRefresh={setRefresh} shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
+                  <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
                 </>
               } 
-            />
+              />
             <Route exact path="/past-due-date" element={
               <>
                 <HeaderAndSidebar user={user} setUserTasks={setUserTasks} refresh={refresh} setRefresh={setRefresh} setGroupData={setGroupData} setGroupTasks={setGroupTasks} groupTasks={groupTasks} groupData={groupData} searchTask={searchTask} setSearchTask={setSearchTask} >  
                 </HeaderAndSidebar>
-                <PastDueDate tasks={user.tasks} setRefresh={setRefresh} />
+                <PastDueDate tasks={user.tasks} setRefresh={setRefresh} shootConfetti={shootConfetti} setShootConfetti={setShootConfetti}/>
+                <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
               </>
               } 
-            />
+              />
+            <Route exact path="/test" element={
+              <>
+                <Confetti shootConfetti={shootConfetti} setShootConfetti={setShootConfetti} />
+              </>
+              } 
+              />
             <Route exact path="/login" element={<Login user={user} setUser={setUser} setErrors={setErrors} />} />
           </Routes>
         </div>

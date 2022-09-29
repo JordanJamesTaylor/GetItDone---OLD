@@ -13,10 +13,10 @@ class Profile < ApplicationRecord
     
     has_one_attached :avatar
 
-    validates :username, :email, :password, presence: true
+    validates :username, :first_name, :last_name, :email, :password, presence: true
     validates :email, :username, uniqueness: true
     validates :password, length: { in: 6..20 }
-
+    
     # CHECKS THAT PASSWORD CONTAINS A SPECIAL CHACATER, AT LEAST 6 CHARACTERS, AT LEAST ONE UPPER AND LOWER CASE LETTER, AND ONE NUMBER
     # TO BE TESTED 
     #validates :password, format: { with: /^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/ }

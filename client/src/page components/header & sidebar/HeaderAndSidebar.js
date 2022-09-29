@@ -38,6 +38,9 @@ import GroupIcon from '../groups/GroupIcon';
 import CustomContextMenu from '../right click menu/CustomContextMenu';
 import HeaderSearch from './HeaderSearch';
 
+/* IMPORT MEDIA */
+import logo from "./GetItDoneLogo.png"
+
 // Set width of tool bar
 const drawerWidth = 280;
 
@@ -150,6 +153,7 @@ export default function HeaderAndSidebar({ setUserTasks, setGroupTasks, groupTas
         >
         <Toolbar />
         
+        <img src={logo} alt="logo" style={{ alignItems: "center", width: "150px", height: "100px", marginBottom: "15%", marginLeft: "20%" }}/>
         <List>
         {/*CONDTIONAL FOR DISPLAYING THE TASK AND GROUP MODELS*/}
         {

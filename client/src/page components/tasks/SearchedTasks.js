@@ -44,7 +44,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function SearchedTask({ task, setRefresh }) {
+export default function SearchedTask({ task, setRefresh, shootConfetti, setShootConfetti }) {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -99,6 +99,8 @@ export default function SearchedTask({ task, setRefresh }) {
 
   // Remove a task from DB and UI on checkbox is clicked on task card
   function handleCheck(){
+    setShootConfetti(!shootConfetti)
+    
     fetch(`/tasks/${task.id}`, {method: 'DELETE'})
     .then(setRefresh(true))
   } ;

@@ -4,7 +4,7 @@ import React from "react";
 /* IMPORT COMPONENTS */
 import Task from "../../page components/tasks/Task";
 
-export default function Today({ tasks, refresh, setRefresh}){
+export default function Today({ tasks, refresh, setRefresh, shootConfetti, setShootConfetti }){
 
   const today = new Date();
 
@@ -26,7 +26,9 @@ export default function Today({ tasks, refresh, setRefresh}){
             end_time={'Today'} 
             expired={null}
             refresh={refresh} 
-            setRefresh={setRefresh} 
+            setRefresh={setRefresh}
+            shootConfetti={shootConfetti}
+            setShootConfetti={setShootConfetti}
           />     
         </div>
       )
@@ -34,7 +36,7 @@ export default function Today({ tasks, refresh, setRefresh}){
   });
 
   return(
-    <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "280px" }}>
+    <div style={{ paddingLeft: "10%", paddingRight: "10%", marginLeft: "265px" }}>
       {tasksForToday}
     </div>
   )

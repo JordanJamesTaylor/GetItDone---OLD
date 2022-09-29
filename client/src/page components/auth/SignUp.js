@@ -1,41 +1,63 @@
+/* IMPORT DEPENDENCIE */
 import * as React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
+
+/* IMPORT MATERIAL UI COMPONENTS */
+// import Button from '@mui/material/Button';
+// import TextField from '@mui/material/TextField';
+// import Grid from '@mui/material/Grid';
+// import Box from '@mui/material/Box';
+// import Typography from '@mui/material/Typography';
+// import Container from '@mui/material/Container';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import IconButton from '@mui/material/IconButton';
+
+/* IMPORT MATERIAL UI COMPONENTS */
+import {
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  InputAdornment,
+  IconButton
+} from '@mui/material/'
+
+/* IMPORT MATERIAL UI ICONS */
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
+/* IMPORT CSS */
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const theme = createTheme();
 
-export default function SignUp({ user, setUser, setErrors, setSignIn, setInvalidPassword }) {
-
+export default function SignUp({ user, setUser, setErrors, setSignIn, setInvalidPassword, setInvalidSignUp, badSignUp, badPassword }) {
+  
+  // Show/hide password if eye icon is clicked
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Hide/show password on icon click
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
-
   let navigate = useNavigate();
+  
+  // Hide/show password on icon click
+  const handleShowPassword = () => setShowPassword(true);
+  const handleHidePassword = () => setShowPassword(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if(password < 6){
+    if(password.length < 6){
       setInvalidPassword(true)
+      badPassword()
+      return <></>
     }
 
     const formData = new FormData()
@@ -54,7 +76,9 @@ export default function SignUp({ user, setUser, setErrors, setSignIn, setInvalid
           setErrors([])
           navigate("/")
       } else {
-          r.json().then((err) => setErrors(err.errors));
+        setInvalidSignUp(true)
+        badSignUp()
+        r.json().then((err) => setErrors(err.errors));
       }
       });
   };
@@ -141,8 +165,8 @@ export default function SignUp({ user, setUser, setErrors, setSignIn, setInvalid
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
+                          onClick={showPassword ? handleHidePassword : handleShowPassword}
+                          //onMouseDown={handleMouseDownPassword}
                         >
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>

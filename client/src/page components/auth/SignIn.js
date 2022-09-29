@@ -8,23 +8,27 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const theme = createTheme();
 
 export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalidLogin, noProfile}) {
 
+    const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
     let navigate = useNavigate();
 
+    // Hide/show password on icon click
+  const handleShowPassword = () => setShowPassword(true);
+  const handleHidePassword = () => setShowPassword(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if(password < 6){
-          setinvalidLogin(true);
-          noProfile();
-        };
     
         fetch("/login", { 
           method: "POST",
@@ -40,10 +44,11 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
               navigate("/profile")
           } else {
               setinvalidLogin(true);
+              noProfile();
               r.json().then((err) => setErrors(err.errors));
           }
-          });
-      };
+      });
+    };
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,11 +84,24 @@ export default function SignIn({ user, setUser, setErrors, setSignIn, setinvalid
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{ // <-- This is where the toggle button is added.
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={showPassword ? handleHidePassword : handleShowPassword}
+                          //onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
             />
             <Button
               type="submit"

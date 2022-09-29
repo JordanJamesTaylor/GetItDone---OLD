@@ -6,7 +6,7 @@ import React from "react";
 import GroupTask from "./GroupTask";
 // import Task from "../../page components/tasks/Task";
 
-export default function GroupTaskContainer({ groupData, groupTasks, setRefresh }){
+export default function GroupTaskContainer({ user, groupData, groupTasks, setRefresh, shootConfetti, setShootConfetti }){
 
   const mappedTasks = groupTasks.map((group) => {
     
@@ -32,6 +32,7 @@ export default function GroupTaskContainer({ groupData, groupTasks, setRefresh }
       <div style={{ margin: 20 }}>
         <GroupTask 
           key={group.id} 
+          user={user}
           id={group.id} 
           title={group.title} 
           notes={group.notes} 
@@ -40,6 +41,8 @@ export default function GroupTaskContainer({ groupData, groupTasks, setRefresh }
           end_time={group.end_time}
           expired={expired}     
           setRefresh={setRefresh}
+          shootConfetti={shootConfetti} 
+          setShootConfetti={setShootConfetti}
         />     
       </div>
     )

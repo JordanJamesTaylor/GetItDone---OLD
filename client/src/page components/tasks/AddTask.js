@@ -247,13 +247,13 @@ export default function AddTask({ user, groupData, setModalOpen, setRefresh, set
                     </Button>
                     <Menu
                         id="basic-menu"
-                        anchorPriority={anchorGroup}
+                        anchorEl={anchorGroup}
                         open={openGroupMenu}
                         onClose={() => setAnchorGroup(null)}
                         MenuListProps={{
                         'aria-labelledby': 'basic-button',
                         }}
-                        style={{ position: "absolute", left: "40%", top: "45%"}}
+                        
                     >
                         {mappedGroups}
                     </Menu>

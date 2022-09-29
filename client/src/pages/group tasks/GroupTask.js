@@ -42,7 +42,7 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
-export default function GroupTask({ id, title, notes, categories, priority, end_time, expired, setRefresh }) {
+export default function GroupTask({ user, id, title, notes, categories, priority, end_time, expired, setRefresh, shootConfetti, setShootConfetti }) {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -107,6 +107,8 @@ export default function GroupTask({ id, title, notes, categories, priority, end_
 
   // Remove a task from DB and UI on checkbox is clicked on task card
   function handleCheck(){
+    setShootConfetti(!shootConfetti)
+    
     fetch(`/tasks/${id}`, {method: 'DELETE'})
     .then(setRefresh(true))
   } ;
@@ -137,7 +139,7 @@ export default function GroupTask({ id, title, notes, categories, priority, end_
         />
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
+              <Typography style={{ fontWeight: "700", marginTop: "6px"}} gutterBottom variant="subtitle1" component="div">
                 {title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -152,7 +154,7 @@ export default function GroupTask({ id, title, notes, categories, priority, end_
       </Grid>
       <Grid container spacing={2} >
         <Grid item xs={12}>
-          <Typography>{`Target Completion Date:`}</Typography>
+          <Typography style={{ marginTop: "6px"}}>{`Target Completion Date:`}</Typography>
         </Grid>
         <Grid item xs={12}>
           {displayDateTime()}

@@ -20,6 +20,8 @@ export default function Profile({ user, setUser, setErrors }) {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
 
+  const placeholderPassword = "******"
+  
   let navigate = useNavigate();
 
   // Change avatar background colour depending on username
@@ -107,7 +109,7 @@ export default function Profile({ user, setUser, setErrors }) {
         style={{ alignItems: "center" }}
       >
         <Typography
-          style={{ marginTop: "40px" }} 
+          style={{ marginTop: "12.5px" }} 
           variant="h3" 
           gutterBottom
         >
@@ -180,6 +182,7 @@ export default function Profile({ user, setUser, setErrors }) {
               <TextField
                 error
                 id="outlined-error-helper-text"
+                placeholder='Password'
                 helperText="Must be 6 or more characters long."
                 style={{ width: "100%", margin: 5 }}
                 value={password}
@@ -229,7 +232,7 @@ export default function Profile({ user, setUser, setErrors }) {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
-          <div style={{ marginTop: 10 }} >
+          <div style={{ marginBottom: 20, marginTop: 10 }} >
           <Button 
             type="submit" 
             variant="outlined" 

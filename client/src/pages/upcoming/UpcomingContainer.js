@@ -5,7 +5,7 @@ import { Typography, Divider } from "@mui/material";
 /* IMPORT COMPONENTS */
 import Task from "../../page components/tasks/Task";
 
-export default function UpcomingContainer({ tasks, refresh, setRefresh}){
+export default function UpcomingContainer({ tasks, refresh, setRefresh, shootConfetti, setShootConfetti }){
 
   // Store one instance of each month from all tasks
   const taskMonths = [];
@@ -82,7 +82,9 @@ export default function UpcomingContainer({ tasks, refresh, setRefresh}){
                   end_time={formattedDate}
                   expired={null}
                   refresh={refresh} 
-                  setRefresh={setRefresh} 
+                  setRefresh={setRefresh}
+                  shootConfetti={shootConfetti}
+                  setShootConfetti={setShootConfetti} 
                 />     
               </div>
           )
